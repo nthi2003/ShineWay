@@ -6,13 +6,13 @@ import { NavDropdown } from './menu-components';
 const accountMenuItemsAuthenticated = () => (
   <>
     <MenuItem icon="wrench" to="/account/settings" data-cy="settings">
-      Settings
+      Cài đặt
     </MenuItem>
     <MenuItem icon="lock" to="/account/password" data-cy="passwordItem">
-      Password
+      Mật khẩu
     </MenuItem>
     <MenuItem icon="sign-out-alt" to="/logout" data-cy="logout">
-      Sign out
+      Đăng xuất
     </MenuItem>
   </>
 );
@@ -20,10 +20,10 @@ const accountMenuItemsAuthenticated = () => (
 const accountMenuItems = () => (
   <>
     <MenuItem id="login-item" icon="sign-in-alt" to="/login" data-cy="login">
-      Sign in
+      Đăng nhập
     </MenuItem>
     <MenuItem icon="user-plus" to="/account/register" data-cy="register">
-      Register
+      Đăng ký
     </MenuItem>
   </>
 );

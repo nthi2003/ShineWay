@@ -7,7 +7,7 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public class Base {
     @Column(name = "is_deleted")
-    private Boolean isdeleted;
+    private Boolean isDeleted;
     @Column(name = "created_by")
     private Long createdBy;
     @Column(name = "updated_by")
@@ -16,11 +16,11 @@ public class Base {
     private LocalDateTime createdDate;
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
-    public Boolean getIsdeleted() {
-        return isdeleted;
+    public Boolean getIsDeleted() {
+        return isDeleted;
     }
-    public void setIsdeleted(Boolean isdeleted) {
-        this.isdeleted = isdeleted;
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
     public Long getCreatedBy() {
         return createdBy;

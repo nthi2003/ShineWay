@@ -19,7 +19,7 @@ public class CategoryMapper {
 		CategoryDTO dto = new CategoryDTO();
 		dto.setId(category.getId());
 		dto.setName(category.getName());
-		dto.setIsdeleted(category.getIsdeleted());
+		dto.setIsDeleted(category.getIsDeleted());
 		dto.setCreatedBy(category.getCreatedBy());
 		dto.setUpdatedBy(category.getUpdatedBy());
 		dto.setCreatedDate(category.getCreatedDate());
@@ -39,7 +39,7 @@ public class CategoryMapper {
 		Category category = new Category();
 		// Không set id, để JPA tự sinh
 		category.setName(dto.getName());
-		category.setIsdeleted(false); // Mặc định chưa xóa
+		category.setIsDeleted(false); // Mặc định chưa xóa
 		category.setCreatedBy(null); // Sẽ set ở Service
 		category.setCreatedDate(java.time.LocalDateTime.now());
 		category.setUpdatedBy(null);

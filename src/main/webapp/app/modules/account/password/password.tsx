@@ -64,8 +64,14 @@ export const PasswordPage = () => {
               type="password"
               validate={{
                 required: { value: true, message: 'Your password is required.' },
-                minLength: { value: 4, message: 'Your password is required to be at least 4 characters.' },
-                maxLength: { value: 50, message: 'Your password cannot be longer than 50 characters.' },
+                minLength: {
+                  value: 4,
+                  message: 'Your password is required to be at least 4 characters.',
+                },
+                maxLength: {
+                  value: 50,
+                  message: 'Your password cannot be longer than 50 characters.',
+                },
               }}
               onChange={updatePassword}
               data-cy="newPassword"
@@ -78,8 +84,14 @@ export const PasswordPage = () => {
               type="password"
               validate={{
                 required: { value: true, message: 'Your confirmation password is required.' },
-                minLength: { value: 4, message: 'Your confirmation password is required to be at least 4 characters.' },
-                maxLength: { value: 50, message: 'Your confirmation password cannot be longer than 50 characters.' },
+                minLength: {
+                  value: 4,
+                  message: 'Your confirmation password is required to be at least 4 characters.',
+                },
+                maxLength: {
+                  value: 50,
+                  message: 'Your confirmation password cannot be longer than 50 characters.',
+                },
                 validate: v => v === password || 'The password and its confirmation do not match!',
               }}
               data-cy="confirmPassword"

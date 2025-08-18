@@ -55,8 +55,14 @@ export const RegisterPage = () => {
                   value: /^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$/,
                   message: 'Your username is invalid.',
                 },
-                minLength: { value: 1, message: 'Your username is required to be at least 1 character.' },
-                maxLength: { value: 50, message: 'Your username cannot be longer than 50 characters.' },
+                minLength: {
+                  value: 1,
+                  message: 'Your username is required to be at least 1 character.',
+                },
+                maxLength: {
+                  value: 50,
+                  message: 'Your username cannot be longer than 50 characters.',
+                },
               }}
               data-cy="username"
             />
@@ -67,8 +73,14 @@ export const RegisterPage = () => {
               type="email"
               validate={{
                 required: { value: true, message: 'Your email is required.' },
-                minLength: { value: 5, message: 'Your email is required to be at least 5 characters.' },
-                maxLength: { value: 254, message: 'Your email cannot be longer than 50 characters.' },
+                minLength: {
+                  value: 5,
+                  message: 'Your email is required to be at least 5 characters.',
+                },
+                maxLength: {
+                  value: 254,
+                  message: 'Your email cannot be longer than 50 characters.',
+                },
                 validate: v => isEmail(v) || 'Your email is invalid.',
               }}
               data-cy="email"
@@ -81,8 +93,14 @@ export const RegisterPage = () => {
               onChange={updatePassword}
               validate={{
                 required: { value: true, message: 'Your password is required.' },
-                minLength: { value: 4, message: 'Your password is required to be at least 4 characters.' },
-                maxLength: { value: 50, message: 'Your password cannot be longer than 50 characters.' },
+                minLength: {
+                  value: 4,
+                  message: 'Your password is required to be at least 4 characters.',
+                },
+                maxLength: {
+                  value: 50,
+                  message: 'Your password cannot be longer than 50 characters.',
+                },
               }}
               data-cy="firstPassword"
             />
@@ -94,8 +112,14 @@ export const RegisterPage = () => {
               type="password"
               validate={{
                 required: { value: true, message: 'Your confirmation password is required.' },
-                minLength: { value: 4, message: 'Your confirmation password is required to be at least 4 characters.' },
-                maxLength: { value: 50, message: 'Your confirmation password cannot be longer than 50 characters.' },
+                minLength: {
+                  value: 4,
+                  message: 'Your confirmation password is required to be at least 4 characters.',
+                },
+                maxLength: {
+                  value: 50,
+                  message: 'Your confirmation password cannot be longer than 50 characters.',
+                },
                 validate: v => v === password || 'The password and its confirmation do not match!',
               }}
               data-cy="secondPassword"

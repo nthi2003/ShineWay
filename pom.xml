@@ -1145,20 +1145,7 @@
                                     <goal>npm</goal>
                                 </goals>
                             </execution>
-                            <execution>
-                                <id>webapp build dev</id>
-                                <goals>
-                                    <goal>npm</goal>
-                                </goals>
-                                <phase>generate-resources</phase>
-                                <configuration>
-                                    <arguments>run webapp:build</arguments>
-                                    <environmentVariables>
-                                        <APP_VERSION>${project.version}</APP_VERSION>
-                                    </environmentVariables>
-                                    <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
-                                </configuration>
-                            </execution>
+
                         </executions>
                     </plugin>
                 </plugins>

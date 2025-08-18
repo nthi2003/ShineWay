@@ -28,7 +28,16 @@ describe('Creating account tests', () => {
 
   it('should handle RESET', () => {
     expect(
-      register({ loading: true, registrationSuccess: true, registrationFailure: true, errorMessage: '', successMessage: '' }, reset()),
+      register(
+        {
+          loading: true,
+          registrationSuccess: true,
+          registrationFailure: true,
+          errorMessage: null,
+          successMessage: null,
+        },
+        reset(),
+      ),
     ).toEqual({
       ...initialState,
     });

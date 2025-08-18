@@ -15,7 +15,9 @@ describe('Axios Interceptor', () => {
       });
     });
     it('onResponseSuccess is called on fulfilled response', () => {
-      expect((client.interceptors.response as any).handlers[0].fulfilled({ data: 'foo' })).toEqual({ data: 'foo' });
+      expect((client.interceptors.response as any).handlers[0].fulfilled({ data: 'foo' })).toEqual({
+        data: 'foo',
+      });
     });
     it('onResponseError is called on rejected response', () => {
       const rejectError = {

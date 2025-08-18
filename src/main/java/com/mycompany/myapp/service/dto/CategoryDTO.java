@@ -7,7 +7,7 @@ import java.util.Objects;
 public class CategoryDTO implements Serializable {
 	private String id;
 	private String name;
-	private Boolean isdeleted;
+	private Boolean isDeleted;
 	private Long createdBy;
 	private Long updatedBy;
 	private LocalDateTime createdDate;
@@ -15,10 +15,10 @@ public class CategoryDTO implements Serializable {
 
 	public CategoryDTO() {}
 
-	public CategoryDTO(String id, String name, Boolean isdeleted, Long createdBy, Long updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
+	public CategoryDTO(String id, String name, Boolean isDeleted, Long createdBy, Long updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
 		this.id = id;
 		this.name = name;
-		this.isdeleted = isdeleted;
+		this.isDeleted = isDeleted;
 		this.createdBy = createdBy;
 		this.updatedBy = updatedBy;
 		this.createdDate = createdDate;
@@ -31,8 +31,8 @@ public class CategoryDTO implements Serializable {
 	public String getName() { return name; }
 	public void setName(String name) { this.name = name; }
 
-	public Boolean getIsdeleted() { return isdeleted; }
-	public void setIsdeleted(Boolean isdeleted) { this.isdeleted = isdeleted; }
+	public Boolean getIsDeleted() { return isDeleted; }
+	public void setIsDeleted(Boolean isDeleted) { this.isDeleted = isDeleted; }
 
 	public Long getCreatedBy() { return createdBy; }
 	public void setCreatedBy(Long createdBy) { this.createdBy = createdBy; }
@@ -53,7 +53,7 @@ public class CategoryDTO implements Serializable {
 		CategoryDTO that = (CategoryDTO) o;
 		return Objects.equals(id, that.id) &&
 				Objects.equals(name, that.name) &&
-				Objects.equals(isdeleted, that.isdeleted) &&
+				Objects.equals(isDeleted, that.isDeleted) &&
 				Objects.equals(createdBy, that.createdBy) &&
 				Objects.equals(updatedBy, that.updatedBy) &&
 				Objects.equals(createdDate, that.createdDate) &&
@@ -62,7 +62,7 @@ public class CategoryDTO implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, isdeleted, createdBy, updatedBy, createdDate, updatedDate);
+		return Objects.hash(id, name, isDeleted, createdBy, updatedBy, createdDate, updatedDate);
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class CategoryDTO implements Serializable {
 		return "CategoryDTO{" +
 				"id='" + id + '\'' +
 				", name='" + name + '\'' +
-				", isdeleted=" + isdeleted +
+				", isDeleted=" + isDeleted +
 				", createdBy='" + createdBy + '\'' +
 				", updatedBy='" + updatedBy + '\'' +
 				", createdDate=" + createdDate +
