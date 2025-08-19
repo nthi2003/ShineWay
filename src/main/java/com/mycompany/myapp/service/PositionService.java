@@ -41,7 +41,7 @@ public class PositionService {
                 .orElseThrow(() -> new RuntimeException("Position not found"));
         
         // Check if the position is deleted
-        if(position.getIsdeleted()) {
+        if(position.getIsDeleted()) {
             throw new RuntimeException("Cannot update a deleted position");
         }
         position.setName(positionDTO.getName());
@@ -65,7 +65,7 @@ public class PositionService {
     public void deletePosition(String positionId) {
         Position position = positionRepository.findByIdAndIsdeletedFalse(positionId)
                 .orElseThrow(() -> new RuntimeException("Position not found"));
-        position.setIsdeleted(true); // Assuming isdeleted is a boolean field in Position
+        position.setIsDeleted(true); // Assuming isdeleted is a boolean field in Position
         positionRepository.save(position);
     }
 }
