@@ -17,7 +17,7 @@ import com.mycompany.myapp.service.dto.PositionDTO;
 
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api")
 public class PositionResource {
 
     private final PositionService positionService;
@@ -31,7 +31,7 @@ public class PositionResource {
         return positionService.getAllPositions();
     }
 
-    @GetMapping("/positions/{id}")
+    @GetMapping("/position/{id}")
     public PositionDTO getPositionById(@PathVariable String id) {
         return positionService.getPositionByID(id);
     }
@@ -42,7 +42,7 @@ public class PositionResource {
         return ResponseEntity.ok(result);
     }
 
-    @PutMapping("/positions/{id}")
+    @PutMapping("/position/{id}")
     public ResponseEntity<PositionDTO> updatePosition(@PathVariable String id, @RequestBody PositionDTO positionDTO) {
         positionDTO.setPositionId(id);;
         if (positionDTO.getPositionId() == null) {
@@ -52,7 +52,7 @@ public class PositionResource {
         return ResponseEntity.ok(result);
     }
 
-    @DeleteMapping("/positions/{id}")
+    @DeleteMapping("/position/{id}")
     public ResponseEntity<Void> deletePosition(@PathVariable String id) {
         positionService.deletePosition(id);
         return ResponseEntity.noContent().build();

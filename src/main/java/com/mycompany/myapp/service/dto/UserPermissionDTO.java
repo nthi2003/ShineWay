@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class AuthorityPermissionDTO implements Serializable {
+public class UserPermissionDTO implements Serializable {
     private String id;
-    private String authorityName;
+    private Long userId;
     private String permissionId;
     private Boolean isDeleted;
     private Long createdBy;
@@ -14,14 +14,14 @@ public class AuthorityPermissionDTO implements Serializable {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
-    public AuthorityPermissionDTO() {
+    public UserPermissionDTO() {
         // Default constructor
     }
 
-    public AuthorityPermissionDTO(String id, String authorityName, String permissionId, Boolean isDeleted,
+    public UserPermissionDTO(String id, Long userId, String permissionId, Boolean isDeleted,
             Long createdBy, Long updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
         this.id = id;
-        this.authorityName = authorityName;
+        this.userId = userId;
         this.permissionId = permissionId;
         this.isDeleted = isDeleted;
         this.createdBy = createdBy;
@@ -37,11 +37,11 @@ public class AuthorityPermissionDTO implements Serializable {
         this.id = id;
     }
 
-    public String getAuthorityName() {
-        return authorityName;
+    public Long getUserId() {
+        return userId;
     }
-    public void setAuthorityName(String authorityName) {
-        this.authorityName = authorityName;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getPermissionId() {
@@ -90,14 +90,14 @@ public class AuthorityPermissionDTO implements Serializable {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof AuthorityPermissionDTO))
+        if (!(o instanceof UserPermissionDTO))
             return false;
 
-        AuthorityPermissionDTO that = (AuthorityPermissionDTO) o;
+        UserPermissionDTO that = (UserPermissionDTO) o;
 
         if (!id.equals(that.id))
             return false;
-        if (!authorityName.equals(that.authorityName))
+        if (!userId.equals(that.userId))
             return false;
         if (!permissionId.equals(that.permissionId))
             return false;
@@ -114,14 +114,14 @@ public class AuthorityPermissionDTO implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, authorityName, permissionId, isDeleted, createdBy, updatedBy, createdDate, updatedDate);
+        return Objects.hash(id, userId, permissionId, isDeleted, createdBy, updatedBy, createdDate, updatedDate);
     }
 
     @Override
     public String toString() {
-        return "AuthorityPermissionDTO{" +
+        return "UserPermissionDTO{" +
                 "id='" + id + '\'' +
-                ", authorityName='" + authorityName + '\'' +
+                ", userId=" + userId +
                 ", permissionId='" + permissionId + '\'' +
                 ", isDeleted=" + isDeleted +
                 ", createdBy=" + createdBy +

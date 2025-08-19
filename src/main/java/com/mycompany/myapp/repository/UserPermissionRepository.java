@@ -3,9 +3,9 @@ package com.mycompany.myapp.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.mycompany.myapp.domain.AuthorityPermission;
+import com.mycompany.myapp.domain.UserPermission;
 
-public interface AuthorityPermissionRepository extends JpaRepository<AuthorityPermission, String> {
+public interface UserPermissionRepository extends JpaRepository<UserPermission, String> {
 
     // /**
     //  * Kiểm tra xem có tồn tại bản ghi nào trong bảng authority_permission
@@ -15,12 +15,11 @@ public interface AuthorityPermissionRepository extends JpaRepository<AuthorityPe
     //  * @param permissionCode mã của permission cần kiểm tra
     //  * @return true nếu có ít nhất một role trong authorityNames được gán permission này, ngược lại trả về false
     //  */
-    @Query("""
+@Query("""
     SELECT COUNT(ap) > 0
-    FROM AuthorityPermission ap
+    FROM UserPermission ap
     JOIN ap.permission p
-    WHERE ap.authority.name IN :authorityNames AND p.code = :permissionCode
+    WHERE ap.user.id = :userId AND p.code = :permissionCode
 """)
-boolean existsByAuthorityNameInAndPermissionCode(Iterable<String> authorityNames, String permissionCode);
-
+boolean existsByUserIdAndPermissionCode(Long userId, String permissionCode);
 }

@@ -1,6 +1,7 @@
 package com.mycompany.myapp.security;
 
-import com.mycompany.myapp.repository.AuthorityPermissionRepository;
+import com.mycompany.myapp.repository.UserPermissionRepository;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -8,9 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class PermissionEvaluator {
 
-    private final AuthorityPermissionRepository authorityPermissionRepository;
+    private final UserPermissionRepository authorityPermissionRepository;
 
-    public PermissionEvaluator(AuthorityPermissionRepository authorityPermissionRepository) {
+    public PermissionEvaluator(UserPermissionRepository authorityPermissionRepository) {
         this.authorityPermissionRepository = authorityPermissionRepository;
     }
 
@@ -27,12 +28,13 @@ public class PermissionEvaluator {
             return false;
         }
 
-        // Lấy danh sách quyền của người dùng hiện tại
-        Iterable<String> authorityNames = authentication.getAuthorities().stream()
-            .map(grantedAuthority -> grantedAuthority.getAuthority())
-            .toList();
+        // Lấy userId hiện tại
+        Long userId = SecurityUtils.getCurrentUserId().orElse(null);
+        if (userId == null) {
+            return false;
+        }
 
         // Kiểm tra quyền trong cơ sở dữ liệu
-        return authorityPermissionRepository.existsByAuthorityNameInAndPermissionCode(authorityNames, requiredPermission);
+        return authorityPermissionRepository.existsByUserIdAndPermissionCode(userId, requiredPermission);
     }
 }

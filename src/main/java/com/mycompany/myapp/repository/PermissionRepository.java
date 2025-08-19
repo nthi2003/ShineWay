@@ -1,8 +1,5 @@
 package com.mycompany.myapp.repository;
-
 import org.springframework.stereotype.Repository;
-
-import com.mycompany.myapp.domain.Category;
 import com.mycompany.myapp.domain.Permission;
 
 import java.util.List;
