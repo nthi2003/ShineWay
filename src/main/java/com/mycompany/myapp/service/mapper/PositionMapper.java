@@ -24,7 +24,7 @@ public class PositionMapper {
         dto.setPositionId(position.getId());
         dto.setName(position.getName());
         dto.setDescription(position.getDescription());
-        dto.setIsDeleted(position.getIsdeleted());
+        dto.setIsDeleted(position.getIsDeleted());
         dto.setUpdatedBy(position.getUpdatedBy());
         dto.setCreatedBy(position.getCreatedBy());
         dto.setCreatedDate(position.getCreatedDate());
@@ -36,12 +36,13 @@ public class PositionMapper {
         if (dto == null) {
             return null;
         }
+
         Position position = new Position();
         position.setName(dto.getName());
         position.setDescription(dto.getDescription());
         position.setCreatedBy(dto.getCreatedBy());
         position.setCreatedDate(java.time.LocalDateTime.now());
-        position.setIsdeleted(false); // Default value for isdeleted
+        position.setIsDeleted(false); // Default value for isdeleted
         // UpdatedBy and UpdatedDate can be set later
         position.setUpdatedBy(dto.getUpdatedBy());
         position.setUpdatedDate(dto.getUpdatedDate());
