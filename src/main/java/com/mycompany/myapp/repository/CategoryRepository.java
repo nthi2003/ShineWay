@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, String> {
- @Query("SELECT c FROM Category c WHERE c.isdeleted = false")
- List<Category> findAllByIsdeletedFalse();
- Optional<Category> findByIdAndIsdeletedFalse(String id);
+ @Query("SELECT c FROM Category c WHERE c.isDeleted = false")
+ List<Category> findAllByIsDeletedFalse();
+ Optional<Category> findByIdAndIsDeletedFalse(String id);
 }

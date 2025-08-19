@@ -49,8 +49,14 @@ export const SettingsPage = () => {
               placeholder="Your first name"
               validate={{
                 required: { value: true, message: 'Your first name is required.' },
-                minLength: { value: 1, message: 'Your first name is required to be at least 1 character' },
-                maxLength: { value: 50, message: 'Your first name cannot be longer than 50 characters' },
+                minLength: {
+                  value: 1,
+                  message: 'Your first name is required to be at least 1 character',
+                },
+                maxLength: {
+                  value: 50,
+                  message: 'Your first name cannot be longer than 50 characters',
+                },
               }}
               data-cy="firstname"
             />
@@ -61,8 +67,14 @@ export const SettingsPage = () => {
               placeholder="Your last name"
               validate={{
                 required: { value: true, message: 'Your last name is required.' },
-                minLength: { value: 1, message: 'Your last name is required to be at least 1 character' },
-                maxLength: { value: 50, message: 'Your last name cannot be longer than 50 characters' },
+                minLength: {
+                  value: 1,
+                  message: 'Your last name is required to be at least 1 character',
+                },
+                maxLength: {
+                  value: 50,
+                  message: 'Your last name cannot be longer than 50 characters',
+                },
               }}
               data-cy="lastname"
             />
@@ -73,8 +85,14 @@ export const SettingsPage = () => {
               type="email"
               validate={{
                 required: { value: true, message: 'Your email is required.' },
-                minLength: { value: 5, message: 'Your email is required to be at least 5 characters.' },
-                maxLength: { value: 254, message: 'Your email cannot be longer than 50 characters.' },
+                minLength: {
+                  value: 5,
+                  message: 'Your email is required to be at least 5 characters.',
+                },
+                maxLength: {
+                  value: 254,
+                  message: 'Your email cannot be longer than 50 characters.',
+                },
                 validate: v => isEmail(v) || 'Your email is invalid.',
               }}
               data-cy="email"

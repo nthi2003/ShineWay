@@ -1,7 +1,9 @@
 package com.mycompany.myapp.security;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -119,4 +121,13 @@ public final class SecurityUtils {
     private static Stream<String> getAuthorities(Authentication authentication) {
         return authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority);
     }
+    public static Iterable<String> getCurrentUserAuthorities() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    if (authentication == null) {
+        return List.of(); // Trả về danh sách rỗng nếu không có thông tin xác thực
+    }
+    return authentication.getAuthorities().stream()
+        .map(GrantedAuthority::getAuthority)
+        .collect(Collectors.toList());
+}
 }

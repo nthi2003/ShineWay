@@ -1,7 +1,6 @@
 import React from 'react';
-// eslint-disable-line
 
-import MenuItem from 'app/shared/layout/menus/menu-item'; // eslint-disable-line
+import MenuItem from 'app/shared/layout/menus/menu-item';
 
 const EntitiesMenu = () => {
   return (

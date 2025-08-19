@@ -6,39 +6,43 @@ import com.mycompany.myapp.service.dto.CategoryDTO;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api")
 public class CategoryResource {
 	private final CategoryService categoryService;
 
 	public CategoryResource(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
-
-	@PostMapping("/categories")
+    @PreAuthorize("@permissionEvaluator.hasAuthority('CATEGORY_CREATE')")
+	@PostMapping("/category")
 	public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO) {
 		CategoryDTO result = categoryService.createCategory(categoryDTO);
 		return ResponseEntity.ok(result);
 	}
-	@PutMapping("/categories/{id}")
+	@PreAuthorize("@permissionEvaluator.hasAuthority('CATEGORY_UPDATE')")
+	@PutMapping("/category/{id}")
 	public ResponseEntity<CategoryDTO> updateCategory(@PathVariable String id, @RequestBody CategoryDTO categoryDTO) {
-		categoryDTO.setId(id);
 		CategoryDTO result = categoryService.updateCategory(categoryDTO);
 		return ResponseEntity.ok(result);
 	}
-    @GetMapping("/categories/{id}")
+	@PreAuthorize("@permissionEvaluator.hasAuthority('CATEGORY_ID')")
+    @GetMapping("/category/{id}")
 	public ResponseEntity<CategoryDTO> getCategory(@PathVariable String id) {
 		CategoryDTO result = categoryService.getCategory(id);
 		return ResponseEntity.ok(result);
 	}
+	@PreAuthorize("@permissionEvaluator.hasAuthority('CATEGORY_ALL')")
     @GetMapping("/categories")
 	public ResponseEntity<List<CategoryDTO>> getAllCategories() {
 		List<CategoryDTO> result = categoryService.getAllCategories();
 		return ResponseEntity.ok(result);
 	}
-    @DeleteMapping("/categories/{id}")
+	@PreAuthorize("@permissionEvaluator.hasAuthority('CATEGORY_DELETE')")
+    @DeleteMapping("/category/{id}")
 	public ResponseEntity<Void> deleteCategory(@PathVariable String id) {
 		categoryService.deleteCategory(id);
 		return ResponseEntity.noContent().build();

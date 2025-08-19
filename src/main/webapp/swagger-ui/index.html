@@ -26,7 +26,9 @@
       };
 
       const getBearerToken = () => {
-        var authToken = localStorage.getItem('jhi-authenticationToken') || sessionStorage.getItem('jhi-authenticationToken');
+        var authToken =
+          localStorage.getItem('jhi-authenticationToken') ||
+          sessionStorage.getItem('jhi-authenticationToken');
         if (authToken) {
           authToken = JSON.parse(authToken);
           return `Bearer ${authToken}`;
@@ -49,7 +51,10 @@
           try {
             const response = await axios.get('/management/jhiopenapigroups', axiosConfig);
             if (Array.isArray(response.data)) {
-              urls = response.data.map(({ group, description }) => ({ name: description, url: `${serverBaseUri}${baseUrl}/${group}` }));
+              urls = response.data.map(({ group, description }) => ({
+                name: description,
+                url: `${serverBaseUri}${baseUrl}/${group}`,
+              }));
             }
           } catch (error) {
             console.error('Failed to fetch default API docs', error);
@@ -92,7 +97,11 @@
           requestInterceptor: function (req) {
             req.headers['Authorization'] = getBearerToken();
             // Remove the sample Swagger UI request body if present
-            if (req.method === 'GET' && req.body === '{"additionalProp1":"string","additionalProp2":"string","additionalProp3":"string"}') {
+            if (
+              req.method === 'GET' &&
+              req.body ===
+                '{"additionalProp1":"string","additionalProp2":"string","additionalProp3":"string"}'
+            ) {
               req.body = undefined;
             }
             return req;
