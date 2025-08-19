@@ -11,8 +11,8 @@ import com.mycompany.myapp.domain.Position;
 
 @Repository
 public interface PositionRepository extends JpaRepository<Position, String> {
-    @Query("SELECT c FROM Position c WHERE c.isdeleted = false")
-    List<Position> findAllByIsdeletedFalse();
+    @Query("SELECT c FROM Position c WHERE c.isDeleted = false")
+    List<Position> findAllByIsDeletedFalse();
 
-    Optional<Position> findByIdAndIsdeletedFalse(String id);
+    Optional<Position> findByIdAndIsDeletedFalse(String id);
 }

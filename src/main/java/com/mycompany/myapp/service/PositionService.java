@@ -52,18 +52,18 @@ public class PositionService {
     }
 
     public PositionDTO getPositionByID(String positionId) {
-        return positionRepository.findByIdAndIsdeletedFalse(positionId)
+        return positionRepository.findByIdAndIsDeletedFalse(positionId)
                 .map(positionMapper::positionToPositionDTO)
                 .orElseThrow(() -> new RuntimeException("Position not found"));
     }
 
     public List<PositionDTO> getAllPositions() {
-        List<Position> positions = positionRepository.findAllByIsdeletedFalse();
+        List<Position> positions = positionRepository.findAllByIsDeletedFalse();
         return positionMapper.positionsToPositionDTOs(positions);
     }
 
     public void deletePosition(String positionId) {
-        Position position = positionRepository.findByIdAndIsdeletedFalse(positionId)
+        Position position = positionRepository.findByIdAndIsDeletedFalse(positionId)
                 .orElseThrow(() -> new RuntimeException("Position not found"));
         position.setIsDeleted(true); // Assuming isdeleted is a boolean field in Position
         positionRepository.save(position);
