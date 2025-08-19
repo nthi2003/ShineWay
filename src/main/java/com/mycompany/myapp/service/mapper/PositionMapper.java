@@ -61,6 +61,7 @@ public class PositionMapper {
         }
         Position position = new Position();
         position.setId(id);
+        
         return position;
     }
 }
