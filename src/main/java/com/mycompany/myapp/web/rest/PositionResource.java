@@ -17,7 +17,7 @@ import com.mycompany.myapp.service.dto.PositionDTO;
 
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api")
 public class PositionResource {
 
     private final PositionService positionService;
@@ -31,7 +31,7 @@ public class PositionResource {
         return positionService.getAllPositions();
     }
 
-    @GetMapping("/positions/{id}")
+    @GetMapping("/position/{id}")
     public PositionDTO getPositionById(@PathVariable String id) {
         return positionService.getPositionByID(id);
     }
