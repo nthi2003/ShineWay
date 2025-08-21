@@ -1,22 +1,18 @@
 package com.mycompany.myapp.service.mapper;
 
+import com.mycompany.myapp.domain.Permission;
+import com.mycompany.myapp.service.dto.PermissionDTO;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 import org.springframework.stereotype.Service;
-
-import com.mycompany.myapp.domain.Permission;
-import com.mycompany.myapp.service.dto.PermissionDTO;
 
 @Service
 public class PermissionMapper {
 
     // Chuyển đổi từ danh sách Permission sang danh sách PermissionDTO
     public List<PermissionDTO> permissionToPermissionDTOs(List<Permission> permissions) {
-        return permissions.stream()
-            .map(this::permissionToPermissionDTO)
-            .collect(Collectors.toList());
+        return permissions.stream().map(this::permissionToPermissionDTO).collect(Collectors.toList());
     }
 
     // Chuyển đổi từ Permission sang PermissionDTO
@@ -39,10 +35,7 @@ public class PermissionMapper {
 
     // Chuyển đổi từ danh sách PermissionDTO sang danh sách Permission
     public List<Permission> permissionDTOToPermissions(List<PermissionDTO> dtos) {
-        return dtos.stream()
-                   .filter(Objects::nonNull)
-                   .map(this::permissionDTOToPermission)
-                   .collect(Collectors.toList());
+        return dtos.stream().filter(Objects::nonNull).map(this::permissionDTOToPermission).collect(Collectors.toList());
     }
 
     // Chuyển đổi từ PermissionDTO sang Permission
@@ -61,6 +54,7 @@ public class PermissionMapper {
         permission.setUpdatedDate(dto.getUpdatedDate());
         return permission;
     }
+
     public Permission permissionFromId(String id) {
         if (id == null) {
             return null;

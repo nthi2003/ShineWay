@@ -1,16 +1,13 @@
 package com.mycompany.myapp.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.mycompany.myapp.domain.Position;
 import com.mycompany.myapp.repository.PositionRepository;
 import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.dto.PositionDTO;
 import com.mycompany.myapp.service.mapper.PositionMapper;
-
 import jakarta.transaction.Transactional;
+import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 @Transactional
@@ -26,22 +23,20 @@ public class PositionService {
 
     public PositionDTO createPosition(PositionDTO positionDTO) {
         Position position = positionMapper.positionDTOToPosition(positionDTO);
-        Long currentUserId = SecurityUtils.getCurrentUserId()
-                .orElseThrow(() -> new RuntimeException("Not logged in"));
+        Long currentUserId = SecurityUtils.getCurrentUserId().orElseThrow(() -> new RuntimeException("Not logged in"));
 
         position.setCreatedBy(currentUserId);
         position = positionRepository.save(position);
         return positionMapper.positionToPositionDTO(position);
     }
 
-    
     public PositionDTO updatePosition(PositionDTO positionDTO) {
+        Position position = positionRepository
+            .findById(positionDTO.getPositionId())
+            .orElseThrow(() -> new RuntimeException("Position not found"));
 
-        Position position = positionRepository.findById(positionDTO.getPositionId())
-                .orElseThrow(() -> new RuntimeException("Position not found"));
-        
         // Check if the position is deleted
-        if(position.getIsDeleted()) {
+        if (position.getIsDeleted()) {
             throw new RuntimeException("Cannot update a deleted position");
         }
         position.setName(positionDTO.getName());
@@ -52,9 +47,10 @@ public class PositionService {
     }
 
     public PositionDTO getPositionByID(String positionId) {
-        return positionRepository.findByIdAndIsDeletedFalse(positionId)
-                .map(positionMapper::positionToPositionDTO)
-                .orElseThrow(() -> new RuntimeException("Position not found"));
+        return positionRepository
+            .findByIdAndIsDeletedFalse(positionId)
+            .map(positionMapper::positionToPositionDTO)
+            .orElseThrow(() -> new RuntimeException("Position not found"));
     }
 
     public List<PositionDTO> getAllPositions() {
@@ -63,8 +59,9 @@ public class PositionService {
     }
 
     public void deletePosition(String positionId) {
-        Position position = positionRepository.findByIdAndIsDeletedFalse(positionId)
-                .orElseThrow(() -> new RuntimeException("Position not found"));
+        Position position = positionRepository
+            .findByIdAndIsDeletedFalse(positionId)
+            .orElseThrow(() -> new RuntimeException("Position not found"));
         position.setIsDeleted(true); // Assuming isdeleted is a boolean field in Position
         positionRepository.save(position);
     }

@@ -1,8 +1,7 @@
 package com.mycompany.myapp.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import com.cloudinary.Cloudinary;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Properties specific to Shine Way.
@@ -12,6 +11,7 @@ import com.cloudinary.Cloudinary;
  */
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
+
     private final Cloudinary cloudinary = new Cloudinary();
 
     private final Liquibase liquibase = new Liquibase();

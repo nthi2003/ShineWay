@@ -3,9 +3,9 @@ package com.mycompany.myapp.service.dto;
 import java.io.Serializable;
 
 public class CreateUserPmDTO implements Serializable {
+
     private Long userId;
     private String permissionId;
-
 
     public Long getUserId() {
         return userId;
