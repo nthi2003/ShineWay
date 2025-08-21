@@ -1,12 +1,10 @@
 package com.mycompany.myapp.service.criteria;
 
+import com.mycompany.myapp.domain.Base;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 import org.springdoc.core.annotations.ParameterObject;
-
-import com.mycompany.myapp.domain.Base;
-
 import tech.jhipster.service.Criteria;
 import tech.jhipster.service.filter.*;
 
@@ -50,7 +48,6 @@ public class ProfileCriteria extends Base implements Serializable, Criteria {
     }
 
     public ProfileCriteria(ProfileCriteria other) {
-
         this.id = other.optionalId().map(UUIDFilter::copy).orElse(null);
         this.firstName = other.optionalFirstName().map(StringFilter::copy).orElse(null);
         this.lastName = other.optionalLastName().map(StringFilter::copy).orElse(null);

@@ -1,19 +1,16 @@
 package com.mycompany.myapp.service.mapper;
 
-import java.util.List;
-import java.util.Objects;
-
-import org.springframework.stereotype.Service;
-
 import com.mycompany.myapp.domain.Position;
 import com.mycompany.myapp.service.dto.PositionDTO;
+import java.util.List;
+import java.util.Objects;
+import org.springframework.stereotype.Service;
+
 @Service
 public class PositionMapper {
 
     public List<PositionDTO> positionsToPositionDTOs(List<Position> positions) {
-        return positions.stream()
-                .filter(Objects::nonNull)
-                .map(this::positionToPositionDTO).toList();
+        return positions.stream().filter(Objects::nonNull).map(this::positionToPositionDTO).toList();
     }
 
     public PositionDTO positionToPositionDTO(Position position) {
@@ -50,10 +47,7 @@ public class PositionMapper {
     }
 
     public List<Position> positionDTOsToPositions(List<PositionDTO> dtos) {
-        return dtos.stream()
-                .filter(Objects::nonNull)
-                .map(this::positionDTOToPosition)
-                .toList();
+        return dtos.stream().filter(Objects::nonNull).map(this::positionDTOToPosition).toList();
     }
 
     public Position positionFromId(String id) {

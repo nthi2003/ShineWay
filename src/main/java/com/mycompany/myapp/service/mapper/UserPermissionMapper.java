@@ -1,21 +1,16 @@
 package com.mycompany.myapp.service.mapper;
 
-import java.util.List;
-import java.util.Objects;
-
-import org.springframework.stereotype.Service;
-
 import com.mycompany.myapp.domain.UserPermission;
 import com.mycompany.myapp.service.dto.UserPermissionDTO;
+import java.util.List;
+import java.util.Objects;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserPermissionMapper {
 
     public List<UserPermissionDTO> userPermissionToDTOs(List<UserPermission> userPermissions) {
-        return userPermissions.stream()
-            .filter(Objects::nonNull)
-            .map(this::userPermissionToDTO)
-            .toList();
+        return userPermissions.stream().filter(Objects::nonNull).map(this::userPermissionToDTO).toList();
     }
 
     public UserPermissionDTO userPermissionToDTO(UserPermission userPermission) {
@@ -35,10 +30,7 @@ public class UserPermissionMapper {
     }
 
     public List<UserPermission> userPermissionDTOsToEntities(List<UserPermissionDTO> dtos) {
-        return dtos.stream()
-            .filter(Objects::nonNull)
-            .map(this::userPermissionDTOToEntity)
-            .toList();
+        return dtos.stream().filter(Objects::nonNull).map(this::userPermissionDTOToEntity).toList();
     }
 
     public UserPermission userPermissionDTOToEntity(UserPermissionDTO dto) {

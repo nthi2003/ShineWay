@@ -1,8 +1,8 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.service.CloudinaryService;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.mycompany.myapp.service.CloudinaryService;
-
 @RestController
 @RequestMapping("/api/images")
 public class ImageResource {
+
     private static final Logger log = LoggerFactory.getLogger(ImageResource.class.getName());
     private final CloudinaryService cloudinaryService;
 
@@ -29,8 +28,10 @@ public class ImageResource {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity uploadImage(@RequestParam("file") MultipartFile file,
-            @RequestParam(value = "folder", defaultValue = "uploads") String folder) {
+    public ResponseEntity uploadImage(
+        @RequestParam("file") MultipartFile file,
+        @RequestParam(value = "folder", defaultValue = "uploads") String folder
+    ) {
         log.debug("REST request to upload image: {}", file.getOriginalFilename());
         if (file.isEmpty()) {
             Map<String, Object> response = new HashMap<>();
@@ -50,7 +51,7 @@ public class ImageResource {
 
             Map<String, Object> response = new HashMap<>();
             response.put("public_id", uploadResult.get("public_id"));
-            response.put("url", uploadResult.get("secure_url")); 
+            response.put("url", uploadResult.get("secure_url"));
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
@@ -77,9 +78,10 @@ public class ImageResource {
 
     @GetMapping("/url")
     public ResponseEntity<Map<String, Object>> getImageUrlByQuery(
-            @RequestParam("publicId") String publicId,
-            @RequestParam(value = "width", required = false) Integer width,
-            @RequestParam(value = "height", required = false) Integer height) {
+        @RequestParam("publicId") String publicId,
+        @RequestParam(value = "width", required = false) Integer width,
+        @RequestParam(value = "height", required = false) Integer height
+    ) {
         log.debug("REST request to get image URL: {}", publicId);
 
         try {

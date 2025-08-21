@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "user_permission")
 public class UserPermission extends Base {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;

@@ -1,6 +1,5 @@
 package com.mycompany.myapp.domain;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,9 +13,9 @@ public class Position extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String positionId;
+
     private String name;
     private String description;
-
 
     public String getId() {
         return positionId;
@@ -40,8 +39,8 @@ public class Position extends Base {
 
     public void setDescription(String description) {
         this.description = description;
-    }   
-    
+    }
+
     public Position() {
         // Default constructor
     }

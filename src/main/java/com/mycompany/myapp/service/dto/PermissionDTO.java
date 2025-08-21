@@ -5,20 +5,30 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class PermissionDTO implements Serializable {
+
     private String id;
     private String code;
     private String resource;
     private String description;
-    private Boolean isDeleted; 
+    private Boolean isDeleted;
     private Long createdBy;
     private Long updatedBy;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
-    public PermissionDTO() {
-   
-    }
 
-    public PermissionDTO(String id, String code, String resource, String description, Boolean isDeleted, Long createdBy, Long updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate) {
+    public PermissionDTO() {}
+
+    public PermissionDTO(
+        String id,
+        String code,
+        String resource,
+        String description,
+        Boolean isDeleted,
+        Long createdBy,
+        Long updatedBy,
+        LocalDateTime createdDate,
+        LocalDateTime updatedDate
+    ) {
         this.id = id;
         this.code = code;
         this.resource = resource;
@@ -29,7 +39,6 @@ public class PermissionDTO implements Serializable {
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
-
 
     // Getters and Setters
     public String getId() {
@@ -110,15 +119,17 @@ public class PermissionDTO implements Serializable {
         if (this == o) return true;
         if (!(o instanceof PermissionDTO)) return false;
         PermissionDTO that = (PermissionDTO) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(code, that.code) &&
-                Objects.equals(resource, that.resource) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(isDeleted, that.isDeleted) &&
-                Objects.equals(createdBy, that.createdBy) &&
-                Objects.equals(updatedBy, that.updatedBy) &&
-                Objects.equals(createdDate, that.createdDate) &&
-                Objects.equals(updatedDate, that.updatedDate);
+        return (
+            Objects.equals(id, that.id) &&
+            Objects.equals(code, that.code) &&
+            Objects.equals(resource, that.resource) &&
+            Objects.equals(description, that.description) &&
+            Objects.equals(isDeleted, that.isDeleted) &&
+            Objects.equals(createdBy, that.createdBy) &&
+            Objects.equals(updatedBy, that.updatedBy) &&
+            Objects.equals(createdDate, that.createdDate) &&
+            Objects.equals(updatedDate, that.updatedDate)
+        );
     }
 
     // Override hashCode
@@ -130,16 +141,31 @@ public class PermissionDTO implements Serializable {
     // Override toString
     @Override
     public String toString() {
-        return "PermissionDTO{" +
-                "id='" + id + '\'' +
-                ", code='" + code + '\'' +
-                ", resource='" + resource + '\'' +
-                ", description='" + description + '\'' +
-                ", isDeleted=" + isDeleted +
-                ", createdBy=" + createdBy +
-                ", updatedBy=" + updatedBy +
-                ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
-                '}';
+        return (
+            "PermissionDTO{" +
+            "id='" +
+            id +
+            '\'' +
+            ", code='" +
+            code +
+            '\'' +
+            ", resource='" +
+            resource +
+            '\'' +
+            ", description='" +
+            description +
+            '\'' +
+            ", isDeleted=" +
+            isDeleted +
+            ", createdBy=" +
+            createdBy +
+            ", updatedBy=" +
+            updatedBy +
+            ", createdDate=" +
+            createdDate +
+            ", updatedDate=" +
+            updatedDate +
+            '}'
+        );
     }
 }
