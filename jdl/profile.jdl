@@ -1,0 +1,19 @@
+entity Profile {
+  id UUID 
+  firstName String
+  lastName String
+  phone String
+  email String
+  dob ZonedDateTime
+  address String
+  gender String
+}
+
+relationship OneToOne {
+  Profile{user(login)} to User with builtInEntity
+}
+
+dto Profile with mapstruct
+service Profile with serviceClass
+filter Profile
+paginate Profile with pagination
