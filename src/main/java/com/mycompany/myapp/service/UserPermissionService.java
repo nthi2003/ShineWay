@@ -5,14 +5,11 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.mycompany.myapp.domain.Authority;
 import com.mycompany.myapp.domain.UserPermission;
 import com.mycompany.myapp.domain.Permission;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.UserPermissionRepository;
 import com.mycompany.myapp.repository.UserRepository;
-import com.mycompany.myapp.repository.AuthorityRepository;
 import com.mycompany.myapp.repository.PermissionRepository;
 import com.mycompany.myapp.security.SecurityUtils;
 import com.mycompany.myapp.service.dto.CreateUserPmDTO;

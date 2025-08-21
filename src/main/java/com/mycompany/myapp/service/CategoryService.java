@@ -3,7 +3,6 @@ package com.mycompany.myapp.service;
 import com.mycompany.myapp.domain.Category;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,11 +54,6 @@ public class CategoryService {
                 .map(categoryMapper::categoryToCategoryDTO)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
     }
-
-    public List<CategoryDTO> getAllCategories() {
-        return categoryMapper.categoriesToCategoryDTOs(categoryRepository.findAllByIsDeletedFalse());
-    }
-
     public void deleteCategory(String id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found"));

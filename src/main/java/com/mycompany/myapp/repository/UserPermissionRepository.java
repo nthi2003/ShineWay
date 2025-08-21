@@ -1,11 +1,12 @@
 package com.mycompany.myapp.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 
 import com.mycompany.myapp.domain.UserPermission;
 
-public interface UserPermissionRepository extends JpaRepository<UserPermission, String> {
+public interface UserPermissionRepository extends JpaRepository<UserPermission, String> , JpaSpecificationExecutor<UserPermission> {
 
     // /**
     //  * Kiểm tra xem có tồn tại bản ghi nào trong bảng authority_permission

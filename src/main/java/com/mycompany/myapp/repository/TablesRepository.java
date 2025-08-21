@@ -8,7 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import com.mycompany.myapp.domain.Tables;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-public interface TablesRepository extends JpaRepository<Tables, String> {
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+public interface TablesRepository extends JpaRepository<Tables, String> , JpaSpecificationExecutor<Tables> {
     
     @Query("SELECT t FROM Tables t WHERE t.isDeleted = false")
     List<Tables> findAllByIsDeletedFalse();

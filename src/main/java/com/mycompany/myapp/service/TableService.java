@@ -30,11 +30,19 @@ public class TableService {
                 .orElseThrow(() -> new RuntimeException("Table not found"));
     }
     public TableDTO createTable(TableDTO tableDTO) {
+          boolean exists = tablesRepository.findAllByIsDeletedFalse()
+        .stream()
+        .anyMatch(t -> t.getName().equalsIgnoreCase(tableDTO.getName()));
+    if (exists) {
+        throw new RuntimeException("Table name already exists");
+    }
         Tables table = tableMapper.tableDTOToTable(tableDTO);
         Long currentUserId = SecurityUtils.getCurrentUserId()
                 .orElseThrow(() -> new RuntimeException("Not logged in"));
-
+        
         table.setCreatedBy(currentUserId);
+        table.setCreatedDate(java.time.LocalDateTime.now());
+        table.setStatus(1);
         Tables savedTable = tablesRepository.save(table);
         return tableMapper.tableToTableDTO(savedTable);
     }

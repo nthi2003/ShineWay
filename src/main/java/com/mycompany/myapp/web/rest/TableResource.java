@@ -2,6 +2,8 @@ package com.mycompany.myapp.web.rest;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mycompany.myapp.service.TableQueryService;
 import com.mycompany.myapp.service.TableService;
+import com.mycompany.myapp.service.criteria.TableCriteria;
 import com.mycompany.myapp.service.dto.TableDTO;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -23,15 +27,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping("/api")
 public class TableResource {
     private final TableService tableService;
+    private final TableQueryService tableQueryService;
 
-    public TableResource(TableService tableService) {
+    public TableResource(TableService tableService, TableQueryService tableQueryService) {
         this.tableService = tableService;
+        this.tableQueryService = tableQueryService;
     }
 
     @PreAuthorize("@permissionEvaluator.hasAuthority('TABLE_ALL')")
     @GetMapping("/tables")
-    public ResponseEntity<List<TableDTO>> getAllTables() {
-        return ResponseEntity.ok(tableService.getAllTables());
+    public ResponseEntity<Page<TableDTO>> getAllTables(TableCriteria criteria , Pageable pageable) {
+        Page<TableDTO> tables = tableQueryService.findByCriteria(criteria, pageable);
+        return ResponseEntity.ok(tables);
     }
      @PreAuthorize("@permissionEvaluator.hasAuthority('TABLE_ID')")
     @GetMapping("/table/{id}")
@@ -40,7 +47,7 @@ public class TableResource {
     }
 
     @PreAuthorize("@permissionEvaluator.hasAuthority('TABLE_CREATE')")
-    @PostMapping("/tables")
+    @PostMapping("/table")
     public ResponseEntity<TableDTO> createTable(@RequestBody TableDTO tableDTO) {
         TableDTO createdTable = tableService.createTable(tableDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTable);
