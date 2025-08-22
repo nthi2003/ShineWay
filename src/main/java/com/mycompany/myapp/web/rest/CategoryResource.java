@@ -38,7 +38,7 @@ public class CategoryResource {
 		CategoryDTO result = categoryService.getCategory(id);
 		return ResponseEntity.ok(result);
 	}
-	    @PreAuthorize("@permissionEvaluator.hasAuthority('CATEGORY_ALL')")
+	@PreAuthorize("@permissionEvaluator.hasAuthority('CATEGORY_ALL')")
     @GetMapping("/categories")
     public ResponseEntity<Page<CategoryDTO>> getAllCategories(
         CategoryCriteria criteria,

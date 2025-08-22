@@ -38,7 +38,7 @@ Development Ribbon
 Navbar styles
 ========================================================================== */
 .jh-navbar {
-  background-color: #353d47;
+  background-color: white;
   padding: 0.2em 1em;
   .profile-image {
     margin: -10px 0;
@@ -75,6 +75,14 @@ Navbar styles
     }
   }
 }
+.brand-logo {
+  display: flex;
+  gap: 20px;
+
+}
+.font-logo {
+  color: #0088FF;
+}
 .navbar-brand {
   overflow: hidden;
 }
@@ -83,41 +91,8 @@ Navbar styles
   padding-right: 0;
   padding-left: 0;
 }
+.search-input {
 
-.navbar-version {
-  font-size: 0.65em;
-  color: $header-color-secondary;
-  padding: 0 0 0 10px;
 }
 
-.brand-logo {
-  &:hover {
-    text-decoration: none;
-  }
-  .brand-icon {
-    height: 35px;
-    width: auto;
-    display: inline-block;
-    img {
-      width: 45px;
-    }
-  }
-}
 
-.brand-title {
-  font-size: 1.25rem;
-  margin-left: 0.25rem;
-  color: $header-color;
-  &:hover {
-    color: $header-color-hover;
-    text-decoration: none;
-  }
-}
-
-.loading-bar {
-  height: 3px;
-  background-color: #009cd8;
-  position: absolute;
-  top: 0;
-  z-index: 1031;
-}
