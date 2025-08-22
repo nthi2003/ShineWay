@@ -1,28 +1,11 @@
 import React from 'react';
-
-import { NavItem, NavLink, NavbarBrand } from 'reactstrap';
+import { NavbarBrand } from 'reactstrap';
 import { NavLink as Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-export const BrandIcon = props => (
-  <div {...props} className="brand-icon">
-    <img src="content/images/logo-jhipster.png" alt="Logo" />
-  </div>
-);
+import { Input } from 'antd';
 
 export const Brand = () => (
-  <NavbarBrand tag={Link} to="/" className="brand-logo">
-    <BrandIcon />
-    <span className="brand-title">ShineWay</span>
-    <span className="navbar-version">{VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`}</span>
+  <NavbarBrand tag={Link} to="/" className="brand-logo" style={{ display: 'flex', alignItems: 'center' }}>
+    <span className="font-logo">ShineWay</span>
+    <Input.Search placeholder="Tìm kiếm ...." enterButton style={{ width: 300, marginLeft: 16 }} />
   </NavbarBrand>
-);
-
-export const Home = () => (
-  <NavItem>
-    <NavLink tag={Link} to="/" className="d-flex align-items-center">
-      <FontAwesomeIcon icon="home" />
-      <span>Trang chủ</span>
-    </NavLink>
-  </NavItem>
 );

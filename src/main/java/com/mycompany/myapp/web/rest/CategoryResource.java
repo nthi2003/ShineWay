@@ -38,12 +38,11 @@ public class CategoryResource {
 
     @PreAuthorize("@permissionEvaluator.hasAuthority('CATEGORY_ID')")
     @GetMapping("/category/{id}")
-    public ResponseEntity<CategoryDTO> getCategory(@PathVariable String id) {
-        CategoryDTO result = categoryService.getCategory(id);
-        return ResponseEntity.ok(result);
-    }
-
-    @PreAuthorize("@permissionEvaluator.hasAuthority('CATEGORY_ALL')")
+	public ResponseEntity<CategoryDTO> getCategory(@PathVariable String id) {
+		CategoryDTO result = categoryService.getCategory(id);
+		return ResponseEntity.ok(result);
+	}
+	    @PreAuthorize("@permissionEvaluator.hasAuthority('CATEGORY_ALL')")
     @GetMapping("/categories")
     public ResponseEntity<Page<CategoryDTO>> getAllCategories(CategoryCriteria criteria, Pageable pageable) {
         Page<CategoryDTO> page = categoryQueryService.findByCriteria(criteria, pageable);
