@@ -6,13 +6,12 @@ import java.util.Objects;
 
 public class PositionDTO implements Serializable {
 
-
     private String positionId;
     private String name;
     private String description;
     private Boolean isDeleted = false; // Default value for isDeleted
     private Long createdBy;
-    private Long updatedBy; 
+    private Long updatedBy;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
@@ -20,13 +19,22 @@ public class PositionDTO implements Serializable {
         // Default constructor
     }
 
-    public PositionDTO(String positionId, String name, String description, Long createdBy, Long updatedBy, LocalDateTime createdDate, LocalDateTime updatedDate, Boolean isDeleted) {
+    public PositionDTO(
+        String positionId,
+        String name,
+        String description,
+        Long createdBy,
+        Long updatedBy,
+        LocalDateTime createdDate,
+        LocalDateTime updatedDate,
+        Boolean isDeleted
+    ) {
         this.positionId = positionId;
         this.name = name;
         this.isDeleted = isDeleted;
         this.description = description;
         this.createdBy = createdBy;
-        this.updatedBy = updatedBy; 
+        this.updatedBy = updatedBy;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
     }
@@ -97,18 +105,19 @@ public class PositionDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-		if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         PositionDTO that = (PositionDTO) o;
-        return Objects.equals(positionId, that.positionId) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(createdBy, that.createdBy) &&
-                Objects.equals(updatedBy, that.updatedBy) &&
-                Objects.equals(createdDate, that.createdDate) &&
-                Objects.equals(updatedDate, that.updatedDate) &&
-                Objects.equals(isDeleted, that.isDeleted);
+        return (
+            Objects.equals(positionId, that.positionId) &&
+            Objects.equals(name, that.name) &&
+            Objects.equals(description, that.description) &&
+            Objects.equals(createdBy, that.createdBy) &&
+            Objects.equals(updatedBy, that.updatedBy) &&
+            Objects.equals(createdDate, that.createdDate) &&
+            Objects.equals(updatedDate, that.updatedDate) &&
+            Objects.equals(isDeleted, that.isDeleted)
+        );
     }
 
     @Override
@@ -118,16 +127,28 @@ public class PositionDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "PositionDTO{" +
-                "positionId='" + positionId + '\'' +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", isDeleted=" + isDeleted +
-                ", createdBy=" + createdBy +
-                ", updatedBy=" + updatedBy +
-                ", createdDate=" + createdDate +
-                ", updatedDate=" + updatedDate +
-                '}';
+        return (
+            "PositionDTO{" +
+            "positionId='" +
+            positionId +
+            '\'' +
+            ", name='" +
+            name +
+            '\'' +
+            ", description='" +
+            description +
+            '\'' +
+            ", isDeleted=" +
+            isDeleted +
+            ", createdBy=" +
+            createdBy +
+            ", updatedBy=" +
+            updatedBy +
+            ", createdDate=" +
+            createdDate +
+            ", updatedDate=" +
+            updatedDate +
+            '}'
+        );
     }
-
 }

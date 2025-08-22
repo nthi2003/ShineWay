@@ -1,7 +1,8 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.service.PositionService;
+import com.mycompany.myapp.service.dto.PositionDTO;
 import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.mycompany.myapp.service.PositionService;
-import com.mycompany.myapp.service.dto.PositionDTO;
-
 
 @RestController
 @RequestMapping("/api")
@@ -35,7 +32,7 @@ public class PositionResource {
     public PositionDTO getPositionById(@PathVariable String id) {
         return positionService.getPositionByID(id);
     }
-    
+
     @PostMapping("/positions")
     public ResponseEntity<PositionDTO> createPosition(@RequestBody PositionDTO positionDTO) {
         PositionDTO result = positionService.createPosition(positionDTO);
@@ -44,7 +41,7 @@ public class PositionResource {
 
     @PutMapping("/position/{id}")
     public ResponseEntity<PositionDTO> updatePosition(@PathVariable String id, @RequestBody PositionDTO positionDTO) {
-        positionDTO.setPositionId(id);;
+        positionDTO.setPositionId(id);
         if (positionDTO.getPositionId() == null) {
             return ResponseEntity.badRequest().build();
         }
@@ -57,8 +54,4 @@ public class PositionResource {
         positionService.deletePosition(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
-  
 }

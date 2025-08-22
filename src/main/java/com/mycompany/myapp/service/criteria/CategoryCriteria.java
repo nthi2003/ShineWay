@@ -12,13 +12,11 @@ public class CategoryCriteria implements Serializable, Criteria {
     private StringFilter id;
     private StringFilter name;
 
-
     public CategoryCriteria() {}
 
     public CategoryCriteria(CategoryCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.name = other.name == null ? null : other.name.copy();
-
     }
 
     @Override
@@ -47,9 +45,7 @@ public class CategoryCriteria implements Serializable, Criteria {
         if (this == o) return true;
         if (!(o instanceof CategoryCriteria)) return false;
         final CategoryCriteria that = (CategoryCriteria) o;
-        return Objects.equals(id, that.id)
-            && Objects.equals(name, that.name);
- 
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
     }
 
     @Override
@@ -59,9 +55,6 @@ public class CategoryCriteria implements Serializable, Criteria {
 
     @Override
     public String toString() {
-        return "CategoryCriteria{" +
-            "id=" + id +
-            ", name=" + name +
-            '}';
+        return "CategoryCriteria{" + "id=" + id + ", name=" + name + '}';
     }
 }

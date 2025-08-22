@@ -9,16 +9,20 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tables")
 public class Tables extends Base {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
+
     private String name;
     private Integer capacity;
-    private Integer status ;
+    private Integer status;
     private String area;
+
     public Tables() {
         // Default constructor
     }
+
     public Tables(String id, String name, Integer capacity, Integer status, String area) {
         this.id = id;
         this.name = name;
@@ -26,10 +30,11 @@ public class Tables extends Base {
         this.status = status;
         this.area = area;
     }
-    
+
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -65,5 +70,4 @@ public class Tables extends Base {
     public void setArea(String area) {
         this.area = area;
     }
-
 }

@@ -1,16 +1,15 @@
 package com.mycompany.myapp.service.mapper;
 
+import com.mycompany.myapp.domain.Tables;
+import com.mycompany.myapp.service.dto.TableDTO;
 import java.util.List;
 import java.util.Objects;
-
 import org.springframework.stereotype.Service;
-
-import com.mycompany.myapp.service.dto.TableDTO;
-import com.mycompany.myapp.domain.Tables;
 
 @Service
 public class TableMapper {
-    public List<TableDTO> tablesToTableDTOs(List<Tables> tables){
+
+    public List<TableDTO> tablesToTableDTOs(List<Tables> tables) {
         return tables.stream().filter(Objects::nonNull).map(this::tableToTableDTO).toList();
     }
 
@@ -31,6 +30,7 @@ public class TableMapper {
         tableDTO.setUpdatedDate(table.getUpdatedDate());
         return tableDTO;
     }
+
     public List<Tables> tableDTOsToTables(List<TableDTO> tableDTOs) {
         return tableDTOs.stream().filter(Objects::nonNull).map(this::tableDTOToTable).toList();
     }
@@ -51,6 +51,7 @@ public class TableMapper {
         table.setUpdatedDate(tableDTO.getUpdatedDate());
         return table;
     }
+
     public Tables tableFromId(String id) {
         if (id == null) {
             return null;

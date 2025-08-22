@@ -84,6 +84,12 @@
             <artifactId>jhipster-framework</artifactId>
             <version>${jhipster-framework.version}</version>
         </dependency>
+        <!-- Cloudinary dependency for image upload/management -->
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.37.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -287,6 +293,12 @@
             <groupId>org.testcontainers</groupId>
             <artifactId>testcontainers</artifactId>
             <scope>test</scope>
+        </dependency>
+        <!-- Cloudinary dependency for image upload/management -->
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.37.0</version>
         </dependency>
     </dependencies>
 
