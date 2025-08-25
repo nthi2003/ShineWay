@@ -1,14 +1,16 @@
 package com.mycompany.myapp.web.rest;
 
+import com.cloudinary.Api;
 import com.mycompany.myapp.repository.ProfileRepository;
 import com.mycompany.myapp.service.ProfileQueryService;
 import com.mycompany.myapp.service.ProfileService;
 import com.mycompany.myapp.service.criteria.ProfileCriteria;
 import com.mycompany.myapp.service.dto.ProfileDTO;
 import com.mycompany.myapp.web.rest.errors.BadRequestAlertException;
+import com.mycompany.myapp.web.rest.vm.ApiResponse;
+
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,7 +31,7 @@ import tech.jhipster.web.util.ResponseUtil;
  * REST controller for managing {@link com.mycompany.myapp.domain.Profile}.
  */
 @RestController
-@RequestMapping("/api/profiles")
+@RequestMapping("/api")
 public class ProfileResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(ProfileResource.class);
@@ -58,17 +60,23 @@ public class ProfileResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new profileDTO, or with status {@code 400 (Bad Request)} if the profile has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PostMapping("")
-    public ResponseEntity<ProfileDTO> createProfile(@RequestBody ProfileDTO profileDTO) throws URISyntaxException {
+    @PostMapping("/profile")
+    public ResponseEntity<ApiResponse<ProfileDTO>> createProfile(@RequestBody ProfileDTO profileDTO) throws URISyntaxException {
         LOG.debug("REST request to save Profile : {}", profileDTO);
         if (profileDTO.getId() != null) {
             throw new BadRequestAlertException("A new profile cannot already have an ID", ENTITY_NAME, "idexists");
         }
         profileDTO = profileService.save(profileDTO);
+
+        ApiResponse<ProfileDTO> response = ApiResponse.success("Profile created successfully", profileDTO);
+        response.addMetadata("requestId", UUID.randomUUID().toString());
+        response.addMetadata("entityName", ENTITY_NAME);
+
         return ResponseEntity.created(new URI("/api/profiles/" + profileDTO.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, profileDTO.getId().toString()))
-            .body(profileDTO);
+            .body(response);
     }
+
 
     /**
      * {@code PUT  /profiles/:id} : Updates an existing profile.
@@ -80,8 +88,8 @@ public class ProfileResource {
      * or with status {@code 500 (Internal Server Error)} if the profileDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PutMapping("/{id}")
-    public ResponseEntity<ProfileDTO> updateProfile(
+    @PutMapping("/profile/{id}")
+    public ResponseEntity<ApiResponse<ProfileDTO>> updateProfile(
         @PathVariable(value = "id", required = false) final UUID id,
         @RequestBody ProfileDTO profileDTO
     ) throws URISyntaxException {
@@ -98,11 +106,15 @@ public class ProfileResource {
         }
 
         profileDTO = profileService.update(profileDTO);
+        
+        ApiResponse<ProfileDTO> response = ApiResponse.success("Profile updated successfully", profileDTO);
+        response.addMetadata("requestId", UUID.randomUUID().toString());
+        response.addMetadata("entityName", ENTITY_NAME);
+        
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, profileDTO.getId().toString()))
-            .body(profileDTO);
+            .body(response);
     }
-
     /**
      * {@code PATCH  /profiles/:id} : Partial updates given fields of an existing profile, field will ignore if it is null
      *
@@ -114,8 +126,8 @@ public class ProfileResource {
      * or with status {@code 500 (Internal Server Error)} if the profileDTO couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
-    @PatchMapping(value = "/{id}", consumes = { "application/json", "application/merge-patch+json" })
-    public ResponseEntity<ProfileDTO> partialUpdateProfile(
+    @PatchMapping(value = "/profile/{id}", consumes = { "application/json", "application/merge-patch+json" })
+    public ResponseEntity<ApiResponse<ProfileDTO>> partialUpdateProfile(
         @PathVariable(value = "id", required = false) final UUID id,
         @RequestBody ProfileDTO profileDTO
     ) throws URISyntaxException {
@@ -132,12 +144,23 @@ public class ProfileResource {
         }
 
         Optional<ProfileDTO> result = profileService.partialUpdate(profileDTO);
-
-        return ResponseUtil.wrapOrNotFound(
-            result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, profileDTO.getId().toString())
-        );
+        
+        if (result.isPresent()) {
+            ApiResponse<ProfileDTO> response = ApiResponse.success("Profile partially updated successfully", result.get());
+            response.addMetadata("requestId", UUID.randomUUID().toString());
+            response.addMetadata("entityName", ENTITY_NAME);
+            
+            return ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, profileDTO.getId().toString()))
+                .body(response);
+        } else {
+            ApiResponse<ProfileDTO> response = ApiResponse.error("Failed to update profile");
+            response.addMetadata("requestId", UUID.randomUUID().toString());
+            response.addMetadata("entityId", id.toString());
+            return ResponseEntity.status(500).body(response);
+        }
     }
+
 
     /**
      * {@code GET  /profiles} : get all the profiles.
@@ -146,8 +169,8 @@ public class ProfileResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of profiles in body.
      */
-    @GetMapping("")
-    public ResponseEntity<Page<ProfileDTO>> getAllProfiles(
+    @GetMapping("/profiles")
+    public ResponseEntity<ApiResponse<Page<ProfileDTO>>> getAllProfiles(
         ProfileCriteria criteria,
         @org.springdoc.core.annotations.ParameterObject Pageable pageable
     ) {
@@ -155,7 +178,13 @@ public class ProfileResource {
 
         Page<ProfileDTO> page = profileQueryService.findByCriteria(criteria, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
-        return ResponseEntity.ok().headers(headers).body(page);
+        
+        ApiResponse<Page<ProfileDTO>> response = ApiResponse.success("Profiles retrieved successfully", page);
+        response.addMetadata("requestId", UUID.randomUUID().toString());
+        response.addMetadata("totalItems", page.getTotalElements());
+        response.addMetadata("totalPages", page.getTotalPages());
+        
+        return ResponseEntity.ok().headers(headers).body(response);
     }
 
     /**
@@ -164,10 +193,16 @@ public class ProfileResource {
      * @param criteria the criteria which the requested entities should match.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the count in body.
      */
-    @GetMapping("/count")
-    public ResponseEntity<Long> countProfiles(ProfileCriteria criteria) {
+    @GetMapping("/profiles/count")
+    public ResponseEntity<ApiResponse<Long>> countProfiles(ProfileCriteria criteria) {
         LOG.debug("REST request to count Profiles by criteria: {}", criteria);
-        return ResponseEntity.ok().body(profileQueryService.countByCriteria(criteria));
+        Long count = profileQueryService.countByCriteria(criteria);
+        
+        ApiResponse<Long> response = ApiResponse.success("Profile count retrieved successfully", count);
+        response.addMetadata("requestId", UUID.randomUUID().toString());
+        response.addMetadata("criteria", criteria.toString());
+        
+        return ResponseEntity.ok().body(response);
     }
 
     /**
@@ -176,11 +211,24 @@ public class ProfileResource {
      * @param id the id of the profileDTO to retrieve.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the profileDTO, or with status {@code 404 (Not Found)}.
      */
-    @GetMapping("/{id}")
-    public ResponseEntity<ProfileDTO> getProfile(@PathVariable("id") UUID id) {
+    @GetMapping("/profile/{id}")
+    public ResponseEntity<ApiResponse<ProfileDTO>> getProfile(@PathVariable("id") UUID id) {
         LOG.debug("REST request to get Profile : {}", id);
         Optional<ProfileDTO> profileDTO = profileService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(profileDTO);
+        
+        if (profileDTO.isPresent()) {
+            ApiResponse<ProfileDTO> response = ApiResponse.success("Profile retrieved successfully", profileDTO.get());
+            // Count is automatically set to 1 for single object in ApiResponse constructor
+            response.addMetadata("requestId", UUID.randomUUID().toString());
+            response.addMetadata("entityName", ENTITY_NAME);
+            return ResponseEntity.ok(response);
+        } else {
+            ApiResponse<ProfileDTO> response = ApiResponse.error("Profile not found");
+            response.setCount(0); // Explicitly set count to 0 for error case
+            response.addMetadata("requestId", UUID.randomUUID().toString());
+            response.addMetadata("entityId", id.toString());
+            return ResponseEntity.status(404).body(response);
+        }
     }
 
     /**
@@ -189,12 +237,18 @@ public class ProfileResource {
      * @param id the id of the profileDTO to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProfile(@PathVariable("id") UUID id) {
+    @DeleteMapping("/profile/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteProfile(@PathVariable("id") UUID id) {
         LOG.debug("REST request to delete Profile : {}", id);
         profileService.delete(id);
-        return ResponseEntity.noContent()
+        
+        ApiResponse<Void> response = ApiResponse.success("Profile deleted successfully", null);
+        response.addMetadata("requestId", UUID.randomUUID().toString());
+        response.addMetadata("entityId", id.toString());
+        response.addMetadata("entityName", ENTITY_NAME);
+        
+        return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
-            .build();
+            .body(response);
     }
 }

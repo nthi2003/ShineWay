@@ -1,6 +1,7 @@
 package com.mycompany.myapp.service.dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -28,6 +29,12 @@ public class ProfileDTO implements Serializable {
     private String gender;
 
     private UserDTO user;
+
+    private Boolean isDeleted = false; // Default value for isDeleted
+    private Long createdBy;
+    private Long updatedBy;
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
 
     public UUID getId() {
         return id;
@@ -101,6 +108,46 @@ public class ProfileDTO implements Serializable {
         this.user = user;
     }
 
+    public Boolean getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public Long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Long getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(Long updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public LocalDateTime getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(LocalDateTime updatedDate) {
+        this.updatedDate = updatedDate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -135,6 +182,11 @@ public class ProfileDTO implements Serializable {
             ", address='" + getAddress() + "'" +
             ", gender='" + getGender() + "'" +
             ", user=" + getUser() +
+            ", isDeleted='" + getIsDeleted() + "'" +
+            ", createdBy='" + getCreatedBy() + "'" +
+            ", updatedBy='" + getUpdatedBy() + "'" +
+            ", createdDate='" + getCreatedDate() + "'" +
+            ", updatedDate='" + getUpdatedDate() + "'" +
             "}";
     }
 }

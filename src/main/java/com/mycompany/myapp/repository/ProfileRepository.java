@@ -18,24 +18,32 @@ public interface ProfileRepository extends JpaRepository<Profile, UUID>, JpaSpec
     default Optional<Profile> findOneWithEagerRelationships(UUID id) {
         return this.findOneWithToOneRelationships(id);
     }
-
+    
+    @Query("SELECT c FROM Profile c WHERE c.isDeleted = false")
     default List<Profile> findAllWithEagerRelationships() {
         return this.findAllWithToOneRelationships();
     }
-
+    
+    @Query("SELECT c FROM Profile c WHERE c.isDeleted = false")
     default Page<Profile> findAllWithEagerRelationships(Pageable pageable) {
         return this.findAllWithToOneRelationships(pageable);
     }
 
     @Query(
-        value = "select profile from Profile profile left join fetch profile.user",
-        countQuery = "select count(profile) from Profile profile"
+        value = "select profile from Profile profile left join fetch profile.user where profile.isDeleted = false",
+        countQuery = "select count(profile) from Profile profile where profile.isDeleted = false"
     )
     Page<Profile> findAllWithToOneRelationships(Pageable pageable);
 
-    @Query("select profile from Profile profile left join fetch profile.user")
+    @Query("select profile from Profile profile left join fetch profile.user where profile.isDeleted = false")
     List<Profile> findAllWithToOneRelationships();
 
-    @Query("select profile from Profile profile left join fetch profile.user where profile.id =:id")
+    @Query("select profile from Profile profile left join fetch profile.user where profile.id =:id and profile.isDeleted = false")
     Optional<Profile> findOneWithToOneRelationships(@Param("id") UUID id);
+
+    
+
+    Optional<Profile> findByIdAndIsDeletedFalse(UUID id);
+
+
 }
