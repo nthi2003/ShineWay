@@ -1,7 +1,6 @@
 package com.mycompany.myapp.service;
 
 import com.mycompany.myapp.domain.*; // for static metamodels
-import com.mycompany.myapp.domain.Profile;
 import com.mycompany.myapp.repository.ProfileRepository;
 import com.mycompany.myapp.service.criteria.ProfileCriteria;
 import com.mycompany.myapp.service.dto.ProfileDTO;
@@ -12,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tech.jhipster.service.QueryService;
@@ -68,10 +68,14 @@ public class ProfileQueryService extends QueryService<Profile> {
      * @return the matching {@link Specification} of the entity.
      */
     protected Specification<Profile> createSpecification(ProfileCriteria criteria) {
-        Specification<Profile> specification = Specification.where(null);
+        // Luôn thêm điều kiện isDeleted = false
+        Specification<Profile> specification = (root, query, criteriaBuilder) -> 
+            criteriaBuilder.equal(root.get(Profile_.isDeleted), false);
+            
         if (criteria != null) {
             // This has to be called first, because the distinct method returns null
             specification = Specification.allOf(
+                specification, // Thêm điều kiện isDeleted = false vào đây
                 Boolean.TRUE.equals(criteria.getDistinct()) ? distinct(criteria.getDistinct()) : null,
                 buildSpecification(criteria.getId(), Profile_.id),
                 buildStringSpecification(criteria.getFirstName(), Profile_.firstName),

@@ -104,7 +104,11 @@ public class ProfileService {
      * @param id the id of the entity.
      */
     public void delete(UUID id) {
+        Profile profile = profileRepository
+        .findByIdAndIsDeletedFalse(id)
+        .orElseThrow(() -> new RuntimeException("Profile not found"));
         LOG.debug("Request to delete Profile : {}", id);
-        profileRepository.deleteById(id);
+        profile.setIsDeleted(true); // Assuming isdeleted is a boolean field in Position
+        profileRepository.save(profile);
     }
 }
